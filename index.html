@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScopeAmend — Change Order Software for Remodeling Contractors</title>
+<meta name="description" content="ScopeAmend is a change-order tool for small remodeling and renovation contractors. Price extra work in minutes, keep your markup private, and get the client's signature before you start — not after the argument.">
+<style>
+  :root{
+    --ink:#17263a; --muted:#5a6b80; --brand:#bc5810; --brand-dark:#8f4208;
+    --bg:#f6f8fa; --card:#ffffff; --line:#dde4ea; --accent:#fbf1e5;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       background:var(--bg); color:var(--ink); line-height:1.55;}
+  .wrap{max-width:960px; margin:0 auto; padding:0 20px;}
+  header{background:var(--ink); color:#fff;}
+  header .wrap{display:flex; align-items:center; justify-content:space-between; padding:16px 20px;}
+  .logo{font-size:22px; font-weight:800; letter-spacing:.2px;}
+  .logo span{color:#f2a65e;}
+  header a{color:#fff; text-decoration:none; font-weight:600; font-size:15px;}
+  header a:hover{text-decoration:underline;}
+  .hero{padding:64px 0 48px; text-align:center;}
+  .hero h1{font-size:40px; line-height:1.15; max-width:720px; margin:0 auto 16px;}
+  .hero p{font-size:19px; color:var(--muted); max-width:640px; margin:0 auto 30px;}
+  .hero .tagline{font-size:21px; font-weight:800; color:var(--brand-dark); max-width:640px; margin:0 auto 14px;}
+  .cta-row{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+  .btn{display:inline-block; padding:14px 28px; border-radius:8px; font-size:17px; font-weight:700;
+       text-decoration:none; border:2px solid transparent; cursor:pointer;}
+  .btn-primary{background:var(--brand); color:#fff;}
+  .btn-primary:hover{background:var(--brand-dark);}
+  .btn-outline{background:#fff; color:var(--brand-dark); border-color:var(--brand);}
+  .btn-outline:hover{background:var(--accent);}
+  .price-note{margin-top:14px; color:var(--muted); font-size:15px;}
+  section{padding:44px 0;}
+  h2{font-size:27px; text-align:center; margin-bottom:30px;}
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .step{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:24px;}
+  .step .num{width:36px; height:36px; border-radius:50%; background:var(--brand); color:#fff;
+             font-weight:800; display:flex; align-items:center; justify-content:center; margin-bottom:12px;}
+  .step h3{font-size:18px; margin-bottom:8px;}
+  .step p{color:var(--muted); font-size:15px;}
+  .features{display:grid; grid-template-columns:repeat(2,1fr); gap:18px;}
+  .feature{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:22px;}
+  .feature h3{font-size:17px; margin-bottom:6px;}
+  .feature p{color:var(--muted); font-size:15px;}
+  .feature .tag{display:inline-block; font-size:11.5px; font-weight:800; letter-spacing:.4px;
+                padding:2px 8px; border-radius:20px; margin-bottom:8px;}
+  .tag-free{background:var(--accent); color:var(--brand-dark);}
+  .tag-pro{background:var(--ink); color:#fff;}
+  .pricing{background:var(--card); border:1px solid var(--line); border-radius:12px;
+           max-width:540px; margin:0 auto; padding:34px; text-align:center;}
+  .pricing .badge{display:inline-block; background:#fdf0e6; color:#8a4b12;
+                  font-weight:800; font-size:13px; padding:4px 12px; border-radius:20px; margin-bottom:14px;}
+  .pricing .amount{font-size:46px; font-weight:800;}
+  .pricing .per{color:var(--muted); font-size:17px;}
+  .pricing .founding{margin-top:12px; font-size:15px; color:var(--ink);}
+  .pricing .standard{color:var(--muted); font-size:14px;}
+  .pricing ul{list-style:none; margin:20px 0 26px; text-align:left;}
+  .pricing li{padding:7px 0 7px 26px; position:relative; color:var(--ink); font-size:15.5px;}
+  .pricing li::before{content:"✓"; position:absolute; left:0; color:var(--brand); font-weight:800;}
+  .honest{background:var(--accent); border-radius:10px; padding:20px 24px; max-width:720px; margin:0 auto;
+          color:var(--brand-dark); font-size:15.5px; text-align:center;}
+  /* Sample change order */
+  .sample-cap{text-align:center; color:var(--muted); font-size:14.5px; margin-top:14px;}
+  .sample-doc{background:#fff; border:1px solid var(--line); border-radius:6px; max-width:680px;
+              margin:0 auto; padding:38px 42px; box-shadow:0 4px 18px rgba(23,38,58,.07); text-align:left;}
+  .sample-doc .co{font-size:21px; font-weight:800; color:var(--ink);}
+  .sample-doc .contact{color:var(--muted); font-size:13.5px; margin-bottom:4px;}
+  .sample-doc .rule{height:3px; background:var(--brand); border-radius:2px; margin:10px 0 20px;}
+  .sample-doc h3{font-size:17px; margin-bottom:4px;}
+  .sample-doc .date{color:var(--muted); font-size:13.5px; margin-bottom:18px;}
+  .sample-doc h4{font-size:14.5px; margin:18px 0 8px;}
+  .sample-doc p, .sample-doc li{font-size:14.5px;}
+  .sample-doc ul{margin:0 0 6px 20px;}
+  .sample-doc .kv{display:flex; gap:10px; font-size:14.5px; padding:3px 0;}
+  .sample-doc .kv b{min-width:170px;}
+  .sample-doc table{width:100%; border-collapse:collapse; margin:6px 0 4px;}
+  .sample-doc th{font-size:13px; text-align:left; color:var(--muted); border-bottom:2px solid var(--line); padding:5px 0;}
+  .sample-doc th.amt, .sample-doc td.amt{text-align:right;}
+  .sample-doc td{font-size:14.5px; padding:6px 0; border-bottom:1px solid var(--line);}
+  .sample-doc tr.total td{border-bottom:none; font-weight:800; font-size:15.5px; padding-top:9px;}
+  .sample-doc .invest{font-size:16px; margin-top:6px;}
+  .sample-doc .invest b{color:var(--brand-dark); font-size:19px;}
+  .sample-doc .sig{margin-top:30px; display:grid; grid-template-columns:1fr 1fr; gap:26px;}
+  .sample-doc .sig .line{border-top:1px solid var(--ink); padding-top:5px; font-size:12.5px; color:var(--muted);}
+  .policies{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  .policy{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:22px;}
+  .policy h3{font-size:17px; margin-bottom:8px;}
+  .policy p{color:var(--muted); font-size:15px;}
+  footer{border-top:1px solid var(--line); padding:28px 0 40px; color:var(--muted); font-size:14.5px; text-align:center;}
+  footer a{color:var(--brand-dark);}
+  @media (max-width:720px){
+    .steps,.features,.policies{grid-template-columns:1fr;}
+    .hero h1{font-size:31px;}
+    .hero{padding:44px 0 34px;}
+    .sample-doc{padding:26px 22px;}
+    .sample-doc .sig{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo">Scope<span>Amend</span></div>
+    <a href="app.html">Open the tool</a>
+  </div>
+</header>
+
+<div class="hero wrap">
+  <h1>Never do extra work you don't get paid for.</h1>
+  <p class="tagline">Price the change. Document the approval. Protect your profit.</p>
+  <p>ScopeAmend is a change-order tool built for small remodeling and renovation contractors.
+     When a client asks for "one more thing" mid-project, price it in minutes, keep your markup
+     private, and get their signature on a clean change-order document — before the work starts,
+     not after the argument.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="https://buy.stripe.com/9B63cwfEn7yU46M3lC0oM0p">Subscribe — $19/month founding price</a>
+    <a class="btn btn-outline" href="app.html">Try the calculator free</a>
+  </div>
+  <p class="price-note">The change-order calculator and a watermarked document preview are free — and your first clean, signed-ready PDF is free too. Pro unlocks unlimited PDFs, multiple projects, and the change-order dashboard.</p>
+</div>
+
+<section class="wrap">
+  <h2>How it works</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="num">1</div>
+      <h3>The client asks for more</h3>
+      <p>"While you're in there…" — extra cabinets, upgraded tile, a moved wall. It happens on every job. The question is whether it's in writing.</p>
+    </div>
+    <div class="step">
+      <div class="num">2</div>
+      <h3>Price it in minutes</h3>
+      <p>Add line items — quantity, your cost, your markup. ScopeAmend totals the change order and shows the new contract value. Your costs and markup stay on your screen only.</p>
+    </div>
+    <div class="step">
+      <div class="num">3</div>
+      <h3>Get it signed first</h3>
+      <p>Download a clean PDF with the work, the price, the schedule impact, and a client signature block. No signature, no extra work. That's the rule that saves your margin.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>What you get</h2>
+  <div class="features">
+    <div class="feature">
+      <span class="tag tag-free">FREE</span>
+      <h3>Full change-order calculator</h3>
+      <p>Line items with quantity, unit cost, and markup — plus the roll-up that matters: original contract, approved change orders to date, and the new contract total, live as you type.</p>
+    </div>
+    <div class="feature">
+      <span class="tag tag-free">FREE</span>
+      <h3>Watermarked document preview</h3>
+      <p>See exactly how the change order will look — the work, the line amounts, the new contract total — right on screen, free. Line totals only: your unit costs and markup never appear.</p>
+    </div>
+    <div class="feature">
+      <span class="tag tag-pro">PRO</span>
+      <h3>Signed-ready PDF change orders</h3>
+      <p>Your logo and contact info, change-order number and document version, description and reason, schedule impact in days, payment terms, and a proper approval block — client and contractor signature, printed name, and date. Your first PDF is free — unwatermarked, no account needed; Pro makes them unlimited.</p>
+    </div>
+    <div class="feature">
+      <span class="tag tag-pro">PRO</span>
+      <h3>Projects, history &amp; backups</h3>
+      <p>Every project keeps its own numbered change-order history — Draft, Sent, Approved, Declined, Paid — with dashboard totals for outstanding and approved dollars. Export a backup file anytime; your data stays in your browser, under your control.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>See a sample change order</h2>
+  <div class="sample-doc">
+    <div class="co">Harbor &amp; Pine Remodeling</div>
+    <div class="contact">(555) 014-2280 · office@harborpine.example</div>
+    <div class="rule"></div>
+    <h3>Change Order #CO-003</h3>
+    <div class="date">Date: November 23, 2026</div>
+
+    <div class="kv"><b>Client</b><span>The Alvarez Family</span></div>
+    <div class="kv"><b>Project</b><span>Kitchen Remodel — 418 Maple St</span></div>
+    <div class="kv"><b>Document ID</b><span>CO-003-V1</span></div>
+    <div class="kv"><b>Contract reference</b><span>Contract #2026-031 · signed October 6, 2026</span></div>
+
+    <h4>Description of change</h4>
+    <p>Add under-cabinet LED lighting, upgrade countertops to quartz, and relocate the gas line for the new range position.</p>
+    <p><em>Reason: Client requested upgrades after demolition exposed the existing layout.</em></p>
+
+    <h4>Work &amp; pricing</h4>
+    <table>
+      <tr><th>Description</th><th class="amt">Amount</th></tr>
+      <tr><td>Add under-cabinet LED lighting</td><td class="amt">$486.00</td></tr>
+      <tr><td>Upgrade to quartz countertop (per client request)</td><td class="amt">$1,240.00</td></tr>
+      <tr><td>Move gas line for range relocation</td><td class="amt">$615.00</td></tr>
+      <tr class="total"><td>Change order total</td><td class="amt">$2,341.00</td></tr>
+    </table>
+
+    <h4>Contract totals</h4>
+    <div class="kv"><b>Previous contract total</b><span>$46,500.00</span></div>
+    <div class="kv"><b>This change order</b><span>$2,341.00</span></div>
+    <p class="invest">New contract total: <b>$48,841.00</b></p>
+    <div class="kv"><b>Schedule impact</b><span>Adds 3 days to the project schedule</span></div>
+
+    <h4>Terms</h4>
+    <p>Payment for this change order is due on completion of the changed work. Work described above begins after client approval below.</p>
+
+    <p style="margin-top:24px;">Both parties agree this change is subject to the original contract and applicable law.</p>
+    <p style="margin-top:8px;"><b>Approved on:</b> ____________________</p>
+    <div class="sig">
+      <div class="line">Client signature</div>
+      <div class="line">Client printed name</div>
+    </div>
+    <div class="sig">
+      <div class="line">Date</div>
+      <div class="line">Contractor signature</div>
+    </div>
+    <div class="sig">
+      <div class="line">Contractor printed name</div>
+      <div class="line">Date</div>
+    </div>
+  </div>
+  <p class="sample-cap">Sample change order — Harbor &amp; Pine Remodeling and the Alvarez Family are fictional. Your change orders carry your logo, your projects, and your prices. Notice what's not on it: the contractor's unit costs and markup.</p>
+</section>
+
+<section class="wrap">
+  <h2>Simple pricing</h2>
+  <div class="pricing">
+    <div class="badge">FOUNDING MEMBERS — FIRST 25 CUSTOMERS</div>
+    <div class="amount">$19</div>
+    <div class="per">per month</div>
+    <p class="founding"><strong>$19/month founding-member pricing</strong> — locked in while your subscription stays active.</p>
+    <p class="standard">Standard price $39/month after the founding spots are gone.</p>
+    <ul>
+      <li>Full calculator + watermarked preview — free forever</li>
+      <li>Your first clean PDF change order — free, no subscription</li>
+      <li>Unlimited clean, branded PDF change orders with signature block</li>
+      <li>Multiple projects + numbered change-order history</li>
+      <li>Dashboard: outstanding and approved change-order dollars</li>
+      <li>Backup export / restore</li>
+      <li>Works on phone, tablet, and computer</li>
+      <li>Cancel anytime</li>
+    </ul>
+    <a class="btn btn-primary" href="https://buy.stripe.com/9B63cwfEn7yU46M3lC0oM0p">Subscribe — $19/month founding price</a>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="honest">
+    <strong>Straight talk:</strong> ScopeAmend is a new tool from a small independent maker.
+    We don't post testimonials or customer counts we don't have. One signed change order on one
+    mid-size remodel can pay for years of subscription — but try the calculator free first, and
+    subscribe only if it fits how you work.
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>The fine print, in plain words</h2>
+  <div class="policies">
+    <div class="policy">
+      <h3>Terms</h3>
+      <p>ScopeAmend provides document preparation and change-order management tools. It does not provide legal advice or guarantee the enforceability of any document. Users are responsible for ensuring that their agreements comply with applicable laws, licensing requirements, and original contract terms.</p>
+    </div>
+    <div class="policy">
+      <h3>Privacy</h3>
+      <p>Your projects, change orders, company info, and logo are stored only in your own browser
+         on your own device. Nothing you type is uploaded to us or anyone else — there is no account
+         and no tracking of your numbers. Export a backup file from the app regularly, because
+         clearing your browser data erases what's saved here.</p>
+    </div>
+    <div class="policy">
+      <h3>Billing &amp; cancellation</h3>
+      <p>Subscriptions are billed monthly through Stripe. You can cancel anytime from your Stripe
+         receipt or the Stripe customer portal — no email to us required, no cancellation fee.
+         When you cancel, Pro stays active until the end of the period you already paid for, and
+         the free calculator keeps working either way.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    ScopeAmend · Questions? Email <a href="mailto:chrisla122787@gmail.com">chrisla122787@gmail.com</a>
+    <p style="max-width:760px; margin:12px auto 0; font-size:12.5px;">ScopeAmend provides document preparation and change-order management tools. It does not provide legal advice or guarantee the enforceability of any document. Users are responsible for ensuring that their agreements comply with applicable laws, licensing requirements, and original contract terms.</p>
+  </div>
+</footer>
+
+</body>
+</html>
